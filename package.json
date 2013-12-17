@@ -37,7 +37,8 @@
   },
   "dependencies": {
     "async": "~0.2.9",
-    "pkgcloud": "~0.8.3"
+    "pkgcloud": "~0.8.3",
+    "mime": "~1.2.11"
   },
   "devDependencies": {
     "grunt": "~0.4.0"
