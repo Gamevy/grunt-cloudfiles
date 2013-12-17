@@ -1,6 +1,7 @@
 module.exports = function(grunt) {
   var pkgcloud = require('pkgcloud'),
       path = require('path'),
+      mime = require('mime'),
       util = require('util'),
       async = require('async'),
       crypto = require('crypto'),
@@ -94,9 +95,12 @@ module.exports = function(grunt) {
   }
 
   function syncFile(fileName, container, dest, strip, headers, callback) {
-
     var ufile = fileName;
-    headers = headers || {};
+    headers = copy(headers) || {};
+
+    if (!headers['content-type']) {
+      headers['content-type'] = mime.lookup(fileName);
+    }
 
     if (strip !== undefined) {
       ufile = stripComponents(ufile, strip);
@@ -197,5 +201,9 @@ module.exports = function(grunt) {
       calledBack = true;
       callback(err, hash);
     }
+  }
+
+  function copy (data) {
+    return  JSON.parse(JSON.stringify(data));
   }
 }
